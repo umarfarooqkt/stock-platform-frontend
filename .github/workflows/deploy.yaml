@@ -23,6 +23,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          REACT_APP_BACKEND_URL: https://api.cs4471-stock-platform.xyz/v1
           REACT_APP_LOGIN_URL: https://auth.cs4471-stock-platform.xyz/login?response_type=token&client_id=1c6ks0s77dbtdm8694au9smfn0&redirect_uri=https://cs4471-stock-platform.xyz/
           REACT_APP_LOGOUT_URL: https://auth.cs4471-stock-platform.xyz/logout?response_type=token&client_id=1c6ks0s77dbtdm8694au9smfn0&redirect_uri=https://cs4471-stock-platform.xyz/
           REACT_APP_AUTH_ENABLED: true
