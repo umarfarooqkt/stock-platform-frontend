@@ -12,8 +12,10 @@ const Layout = () => (
                         content goes here
                     </SignedInLayout>
                 </Route>
-                <Route path={"/registry"} exact>
-                    <Registry/>
+                <Route path="/registry" exact>
+                    <SignedInLayout>
+                        <Registry/>
+                    </SignedInLayout>
                 </Route>
             </Switch>
         </BrowserRouter>
