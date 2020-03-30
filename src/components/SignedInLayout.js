@@ -1,7 +1,7 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-    Button, Nav, Navbar,
+    Button, Nav, Navbar, NavItem, NavLink
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { isAuthEnabled } from '../service/auth';
@@ -26,6 +26,9 @@ const SignedInLayout = ({ children, onPurgeAuth }) => (
                 nav items go here
             </Nav>
             <Nav className="ml-auto">
+                <NavItem>
+                    <NavLink href={"/registry"}>Service Registry</NavLink>
+                </NavItem>
                 <Button onClick={() => {
                     onPurgeAuth();
                     if (isAuthEnabled()) {
