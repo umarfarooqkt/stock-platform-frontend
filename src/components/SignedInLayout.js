@@ -1,12 +1,15 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-    Button, Nav, Navbar, NavItem, NavLink
+    Button, Nav, Navbar, NavItem
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { isAuthEnabled } from '../service/auth';
 import { gotoLoginPage } from '../service';
 
+const navItemStyle = {
+    margin: '10px'
+};
 
 const SignedInLayout = ({ children, onPurgeAuth }) => (
     <div>
@@ -18,23 +21,17 @@ const SignedInLayout = ({ children, onPurgeAuth }) => (
             </Link>
 
             <Nav>
-                <NavItem>
-                    <NavLink>
+                <NavItem style={navItemStyle}>
                         <Link to={'/stocks'}>Stocks</Link>
-                    </NavLink>
                 </NavItem>
-                <NavItem>
-                    <NavLink>
+                <NavItem style={navItemStyle}>
                         <Link to={'/portfolio'}>Portfolio</Link>
-                    </NavLink>
                 </NavItem>
             </Nav>
 
             <Nav className="ml-auto">
-                <NavItem>
-                    <NavLink>
-                        <Link to={'/registry'}>Service Registry</Link>
-                    </NavLink>
+                <NavItem style={navItemStyle}>
+                    <Link to={'/registry'}>Service Registry</Link>
                 </NavItem>
                 <Button onClick={() => {
                     onPurgeAuth();
@@ -47,7 +44,9 @@ const SignedInLayout = ({ children, onPurgeAuth }) => (
                 </Button>
             </Nav>
         </Navbar>
-        {children}
+        <div style={{ margin: '15px' }}>
+            {children}
+        </div>
     </div>
 );
 

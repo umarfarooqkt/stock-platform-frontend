@@ -5,7 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import configureStore from './configureStore';
 import Layout from './components/Layout';
 import { setupToken } from './service/auth';
-import { getStocks } from './actions/stock';
+import { getStocks } from './actions/stocks';
 import { getPortfolio } from './actions/portfolio';
 
 const app = (renderTo) => {
