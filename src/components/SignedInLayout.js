@@ -22,6 +22,9 @@ const SignedInLayout = ({ children, onPurgeAuth }) => (
                     />
                 </Navbar.Brand>
             </Link>
+            <Link to="/stocks">
+                Stocks
+            </Link>
             <Link to="/portfolio">
                 Portfolio
             </Link>

@@ -17,7 +17,7 @@ export const getAuthHeaders = (token) => {
             Authorization: `Bearer ${token}`,
         };
     }
-    return new Headers(headers);
+    return headers;
 };
 
 export const setupToken = (store) => {

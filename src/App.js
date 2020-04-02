@@ -5,9 +5,12 @@ import { PersistGate } from 'redux-persist/integration/react';
 import configureStore from './configureStore';
 import Layout from './components/Layout';
 import { setupToken } from './service/auth';
+import { getStocks } from './actions/stock';
+import { getPortfolio } from './actions/portfolio';
 
 const app = (renderTo) => {
     const { store, persistor } = configureStore();
+
     ReactDOM.render(
         <Provider store={store}>
             <PersistGate
@@ -15,6 +18,8 @@ const app = (renderTo) => {
                 persistor={persistor}
                 onBeforeLift={() => {
                     setupToken(store);
+                    store.dispatch(getPortfolio());
+                    store.dispatch(getStocks());
                 }}
             >
                 <Layout />

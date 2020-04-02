@@ -1,122 +1,43 @@
-import React, { Component } from 'react'
-import { Card, ListGroup, Button } from "react-bootstrap";
-import axios from 'axios';
-import { getToken } from '../reducers';
-import configureStore from "../configureStore";
+import React, { useEffect } from 'react'
+import { Card, ListGroup, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getPortfolio, removeFavourite } from '../actions/portfolio';
 
-class Portfolio extends Component{
-    state = {
-        favStocks: [
-            {
-                user_id: "1",
-                stock_symbol: "APPL",
-                favourite_status: true,
-                stock_name: "Apple Inc.",
-                stock_description: "This is the stock description"
-            },
-            {
-                user_id: "1",
-                stock_symbol: "AMD",
-                favourite_status: true,
-                stock_name: "Advance Micro Devices",
-                stock_description: "This is the stock description"
-            }
-        ],
-        unFavStocks: [
-            {
-                user_id: "1",
-                stock_symbol: "Intel",
-                favourite_status: true,
-                stock_name: "Intel Corporation",
-                stock_description: "This is the stock description"
-            }
-        ]
+const Portfolio = ({ portfolio, getPortfolio, removeFavourite }) => {
+    useEffect(() => {
+        getPortfolio();
+    }, [getPortfolio]);
+
+    const handleRemoveButton = async (symbol) => {
+        await removeFavourite(symbol);
+        await getPortfolio();
     };
 
-    token = getToken(configureStore().store.getState());
+    return (
+        <div>
+            <Card>
+                <Card.Header>Favourites</Card.Header>
+                <ListGroup variant="flush">
+                    {portfolio.map((stock) => (
+                        <ListGroup.Item key={stock.symbol}>
+                            {stock.symbol} - {stock.name}
+                            <Button variant="outline-danger" onClick={() => handleRemoveButton(stock.symbol)}>Remove</Button>
+                        </ListGroup.Item>
+                    ))}
+                </ListGroup>
+            </Card>
+        </div>
+    );
+};
 
-    portfolioUrl = `${process.env.REACT_APP_BACKEND_URL}/portfolio`;
+const mapStateToProps = (state) => ({
+    portfolio: state.stocks.data.filter((stock) => state.portfolio.data.includes(stock.symbol))
+});
 
-    componentDidMount() {
-        this.getFavStocks();
-        this.getUnFavStocks();
-    }
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    getPortfolio,
+    removeFavourite
+}, dispatch);
 
-    getFavStocks() {
-        const url = this.portfolioUrl + '/allfavourites';
-
-        axios.get(url, {
-            headers: {
-                'Authorization': `Bearer ${this.token}`
-            }
-        })
-            .then(response => {
-                console.log(response.data);
-                this.setState({
-                    ...this.state,
-                    favStocks: response.data
-                })
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }
-
-    getUnFavStocks() {
-        const url = this.portfolioUrl + '/allunfavourites';
-
-        axios.get(url, {
-            headers: {
-                'Authorization': `Bearer ${this.token}`
-            }
-        })
-            .then(response => {
-                this.setState({
-                    ...this.state,
-                    unFavStocks: response.data
-                })
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
-
-    getFavList() {
-        let list = [];
-
-        this.state.favStocks.forEach(stock => {
-            list.push(<ListGroup.Item key={stock.stock_symbol}>({stock.stock_symbol}) {stock.stock_name}<Button variant="outline-danger">Remove</Button></ListGroup.Item>);
-        });
-        return list
-    }
-
-    getUnFavList() {
-        let list = [];
-
-        this.state.unFavStocks.forEach(stock => {
-            list.push(<ListGroup.Item key={stock.stock_symbol}>({stock.stock_symbol}) {stock.stock_name}<Button variant="outline-primary">Add</Button></ListGroup.Item>);
-        });
-        return list
-    }
-
-    render() {
-        return (
-            <div>
-                <Card>
-                    <Card.Header>Favourites</Card.Header>
-                    <ListGroup variant="flush">
-                        {this.getFavList()}
-                    </ListGroup>
-                </Card>
-                <Card>
-                    <Card.Header>Stocks</Card.Header>
-                    <ListGroup variant="flush">
-                        {this.getUnFavList()}
-                    </ListGroup>
-                </Card>
-            </div>
-        )
-    }
-}
-
-export default Portfolio
+export default connect(mapStateToProps, mapDispatchToProps)(Portfolio);
