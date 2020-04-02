@@ -14,11 +14,13 @@ const persistConfig = {
     whitelist: ['auth'],
 };
 
+const reducer = combineReducers(allReducers);
+const persistedReducer = persistReducer(persistConfig, reducer);
+const middleware = composeEnhancers(applyMiddleware(thunk, promise));
+const store = createStore(persistedReducer, middleware);
+const persistor = persistStore(store);
+
+
 export default function configureStore() {
-    const reducer = combineReducers(allReducers);
-    const persistedReducer = persistReducer(persistConfig, reducer);
-    const middleware = composeEnhancers(applyMiddleware(thunk, promise));
-    const store = createStore(persistedReducer, middleware);
-    const persistor = persistStore(store);
     return { store, persistor };
 }
