@@ -14,5 +14,11 @@ export const fetchGraphData = async (symbol, token) => {
         },
         headers: getAuthHeaders(token)
     });
+
+    res.data.graph_data.forEach((point) => {
+        const date = point.date_time.split("-");
+        const new_date = `${date[1]}-${date[0]}-${date[2]}-${date[3]}`
+        point.date_time = new_date;
+    })
     return res.data.graph_data;
 };
