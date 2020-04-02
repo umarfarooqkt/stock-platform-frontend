@@ -50,13 +50,13 @@ export const removeFavourite = (symbol) => async (dispatch, getState) => {
     try {
         const portfolio = await deleteFavourite(symbol, getToken(getState()));
         dispatch({
-            type: actionTypes.REMOVE_FAVOURITE_COMPLETED,
+            type: actionTypes.REMOVE_FAVOURITE_COMPLETE,
             payload: portfolio
         });
     } catch (err) {
         console.error(err);
         dispatch({
-            type: actionTypes.REMOVE_FAVOURITE_COMPLETED,
+            type: actionTypes.REMOVE_FAVOURITE_COMPLETE,
             payload: err
         });
     }

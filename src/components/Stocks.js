@@ -2,8 +2,9 @@ import React, {useEffect} from 'react'
 import { Card, ListGroup, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getStocks } from '../actions/stock';
+import { getStocks } from '../actions/stocks';
 import { getPortfolio, addFavourite, removeFavourite } from '../actions/portfolio';
+import { Link } from 'react-router-dom';
 
 const Stocks = ({ stocks, getStocks, getPortfolio, addFavourite, removeFavourite }) => {
     useEffect(() => {
@@ -46,7 +47,7 @@ const Stocks = ({ stocks, getStocks, getPortfolio, addFavourite, removeFavourite
                 <ListGroup variant="flush">
                     {stocks.map((stock) => (
                         <ListGroup.Item key={stock.symbol}>
-                            {stock.symbol} - {stock.name}
+                            <Link to={`/stock/${stock.symbol}`}>{stock.symbol} - {stock.name}</Link>
                             {renderFavouriteButton(stock)}
                         </ListGroup.Item>
                     ))}
@@ -57,7 +58,7 @@ const Stocks = ({ stocks, getStocks, getPortfolio, addFavourite, removeFavourite
 };
 
 const mapStateToProps = (state) => ({
-    stocks: state.stocks.data.map((stock) => ({
+    stocks: state.stocks.stockList.map((stock) => ({
         ...stock,
         favourite: state.portfolio.data.includes(stock.symbol)
     }))

@@ -2,9 +2,9 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import SignedInLayout from '../containers/SignedInLayout';
 import Registry from './Registry/Registry';
-
 import Portfolio from './Portfolio';
 import Stocks from './Stocks';
+import StockInfo from './StockInfo';
 
 const Layout = () => (
     <div>
@@ -34,6 +34,11 @@ const Layout = () => (
                 <Route path="/stocks" exact>
                     <SignedInLayout>
                         <Stocks/>
+                    </SignedInLayout>
+                </Route>
+                <Route path="/stock/:symbol" exact>
+                    <SignedInLayout>
+                        <StockInfo/>
                     </SignedInLayout>
                 </Route>
                 <Route path="/portfolio" exact>
