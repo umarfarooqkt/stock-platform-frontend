@@ -22,9 +22,9 @@ const SignedInLayout = ({ children, onPurgeAuth }) => (
                     />
                 </Navbar.Brand>
             </Link>
-            <Nav>
-                nav items go here
-            </Nav>
+            <Link to="/portfolio">
+                Portfolio
+            </Link>
             <Nav className="ml-auto">
                 <NavItem>
                     <NavLink href={"/registry"}>Service Registry</NavLink>

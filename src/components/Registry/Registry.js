@@ -10,7 +10,6 @@ class Registry extends Component {
     componentDidMount() {
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/directory`)
             .then(response => {
-                console.log(response.data);
                 const data = response.data;
                 this.setState({ data })
             })
