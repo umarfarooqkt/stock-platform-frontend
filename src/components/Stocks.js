@@ -19,6 +19,7 @@ const Stocks = ({ stocks, getStocks, getPortfolio, addFavourite, removeFavourite
                         await removeFavourite(symbol);
                         await getPortfolio();
                     }}
+                    style={{ float: 'right' }}
                 >
                     Unfavourite
                 </Button>
@@ -30,6 +31,7 @@ const Stocks = ({ stocks, getStocks, getPortfolio, addFavourite, removeFavourite
                         await addFavourite(symbol);
                         await getPortfolio();
                     }}
+                    style={{ float: 'right' }}
                 >
                     Favourite
                 </Button>

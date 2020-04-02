@@ -13,24 +13,28 @@ const SignedInLayout = ({ children, onPurgeAuth }) => (
         <Navbar bg="light" expand="sm">
             <Link to="/">
                 <Navbar.Brand>
-                    <img
-                        className="brand-image"
-                        alt="Logo"
-                        src="/stonks.svg"
-                        width="100"
-                        height="100"
-                    />
+                    Stock Platform
                 </Navbar.Brand>
             </Link>
-            <Link to="/stocks">
-                Stocks
-            </Link>
-            <Link to="/portfolio">
-                Portfolio
-            </Link>
+
+            <Nav>
+                <NavItem>
+                    <NavLink>
+                        <Link to={'/stocks'}>Stocks</Link>
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink>
+                        <Link to={'/portfolio'}>Portfolio</Link>
+                    </NavLink>
+                </NavItem>
+            </Nav>
+
             <Nav className="ml-auto">
                 <NavItem>
-                    <NavLink href={"/registry"}>Service Registry</NavLink>
+                    <NavLink>
+                        <Link to={'/registry'}>Service Registry</Link>
+                    </NavLink>
                 </NavItem>
                 <Button onClick={() => {
                     onPurgeAuth();

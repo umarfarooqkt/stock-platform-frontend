@@ -22,7 +22,13 @@ const Portfolio = ({ portfolio, getPortfolio, removeFavourite }) => {
                     {portfolio.map((stock) => (
                         <ListGroup.Item key={stock.symbol}>
                             {stock.symbol} - {stock.name}
-                            <Button variant="outline-danger" onClick={() => handleRemoveButton(stock.symbol)}>Remove</Button>
+                            <Button
+                                variant="outline-danger"
+                                onClick={() => handleRemoveButton(stock.symbol)}
+                                style={{ float: 'right' }}
+                            >
+                                Remove
+                            </Button>
                         </ListGroup.Item>
                     ))}
                 </ListGroup>

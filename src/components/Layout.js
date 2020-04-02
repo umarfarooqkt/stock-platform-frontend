@@ -12,7 +12,18 @@ const Layout = () => (
             <Switch>
                 <Route path="/" exact>
                     <SignedInLayout>
-                        Welcome!
+                        <p>
+                            Welcome!
+                        </p>
+                        <p>
+                            <img
+                                className="brand-image"
+                                alt="Logo"
+                                src="/stonks.svg"
+                                width="100"
+                                height="100"
+                            />
+                        </p>
                     </SignedInLayout>
                 </Route>
                 <Route path="/registry" exact>
