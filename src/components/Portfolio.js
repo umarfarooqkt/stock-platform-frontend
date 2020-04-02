@@ -3,6 +3,7 @@ import { Card, ListGroup, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getPortfolio, removeFavourite } from '../actions/portfolio';
+import { Link } from 'react-router-dom';
 
 const Portfolio = ({ portfolio, getPortfolio, removeFavourite }) => {
     useEffect(() => {
@@ -21,7 +22,7 @@ const Portfolio = ({ portfolio, getPortfolio, removeFavourite }) => {
                 <ListGroup variant="flush">
                     {portfolio.map((stock) => (
                         <ListGroup.Item key={stock.symbol}>
-                            {stock.symbol} - {stock.name}
+                            <Link to={`/stock/${stock.symbol}`}>{stock.symbol} - {stock.name}</Link>
                             <Button
                                 variant="outline-danger"
                                 onClick={() => handleRemoveButton(stock.symbol)}
@@ -38,7 +39,7 @@ const Portfolio = ({ portfolio, getPortfolio, removeFavourite }) => {
 };
 
 const mapStateToProps = (state) => ({
-    portfolio: state.stocks.data.filter((stock) => state.portfolio.data.includes(stock.symbol))
+    portfolio: state.stocks.stockList.filter((stock) => state.portfolio.data.includes(stock.symbol))
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
